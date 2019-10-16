@@ -1,19 +1,21 @@
-package classes;
+package classes.instruction;
 
-public class Instruction implements Comparable<Instruction>{
+import classes.currency.Currency;
+
+public class Instruction implements Comparable<Instruction> {
     private String entityName;
     private boolean isSelling;
     private double agreedFix;
-    private String currency;
+    private Currency currency;
     private String instructionDate;
     private String settlementDate;
     private int units;
     private double pricePerUnit;
     private double totalUSD;
 
-    public Instruction (String entityName, boolean isSelling, double agreedFix,
-                        String currency, String instructionDate, String settlementDate,
-                        int units, double pricePerUnit){
+    public Instruction(String entityName, boolean isSelling, double agreedFix,
+                       Currency currency, String instructionDate, String settlementDate,
+                       int units, double pricePerUnit) {
         this.entityName = entityName;
         this.isSelling = isSelling;
         this.agreedFix = agreedFix;
@@ -22,8 +24,8 @@ public class Instruction implements Comparable<Instruction>{
         this.settlementDate = settlementDate;
         this.units = units;
         this.pricePerUnit = pricePerUnit;
+        this.totalUSD = 0.0;
     }
-
 
     public double getTotalUSD() {
         return totalUSD;
@@ -57,11 +59,11 @@ public class Instruction implements Comparable<Instruction>{
         this.agreedFix = agreedFix;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 
@@ -99,8 +101,8 @@ public class Instruction implements Comparable<Instruction>{
 
     @Override
     public String toString() {
-        return this.getEntityName() + " USD: " + this.getTotalUSD() +
-                " instruction Date: " + this.getInstructionDate();
+        return this.getEntityName() + " " + this.currency.getType() + " : Total USD: " + this.getTotalUSD() +
+                " Instruction Date: " + this.getInstructionDate();
     }
 
     @Override
