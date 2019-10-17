@@ -1,4 +1,4 @@
-package test;
+package test.instruction;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;

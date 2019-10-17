@@ -1,4 +1,4 @@
-package test;
+package test.instruction;
 
 import classes.currency.Currency;
 import classes.currency.CurrencyGBP;
