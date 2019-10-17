@@ -14,7 +14,7 @@ public class InstructionDataCollector {
      * I tried to reduce the repetition of code as much as possible
      * @return
      */
-    public Instruction instructionDataCollector() {
+    public Instruction instructionDataScannerCollector() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Entity name: ");
         String entityName = scanner.next();

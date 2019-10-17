@@ -27,7 +27,7 @@ public class Main {
             selection = scanner.nextInt();
             switch (selection) {
                 case 1:
-                    Instruction instruction = collector.instructionDataCollector();
+                    Instruction instruction = collector.instructionDataScannerCollector();
                     instructionsList.add(instruction);
                     System.out.println("New instruction " + instruction.getEntityName() + " added successfully");
                     break;
