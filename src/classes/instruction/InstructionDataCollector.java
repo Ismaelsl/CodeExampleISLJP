@@ -1,17 +1,21 @@
 package classes.instruction;
 
+import ch.qos.logback.classic.Logger;
 import classes.currency.Currency;
 import classes.currency.CurrencyEUR;
 import classes.currency.CurrencyGBP;
 import classes.currency.CurrencyUSD;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
 public class InstructionDataCollector {
+    static final Logger logger = (Logger) LoggerFactory.getLogger(InstructionDataCollector.class);
 
     /**
      * Method to collect data from the line prompt
      * I tried to reduce the repetition of code as much as possible
+     *
      * @return
      */
     public Instruction instructionDataScannerCollector() {
@@ -20,11 +24,11 @@ public class InstructionDataCollector {
         String entityName = scanner.next();
         System.out.print("Are you selling? (1: Yes, any other number: No): ");
         boolean isSelling = false;
-        String input = inputChecker(scanner,true);
+        String input = inputChecker(scanner, true);
         int selling = Integer.parseInt(input);
         if (selling <= 0) isSelling = true;
         System.out.print("Enter agreed Fix: ");
-        input = inputChecker(scanner,false);
+        input = inputChecker(scanner, false);
         double agreedFix = Double.parseDouble(input);
         System.out.print("Enter Currency type: ");
         String currencyType = scanner.next();
@@ -35,10 +39,10 @@ public class InstructionDataCollector {
         System.out.print("Enter Settlement Date (dd/MM/yyyy): ");
         String settlementDate = scanner.next();
         System.out.print("Enter number of units: ");
-        input = inputChecker(scanner,true);
+        input = inputChecker(scanner, true);
         int units = Integer.parseInt(input);
         System.out.print("Enter price per units: ");
-        input = inputChecker(scanner,true);
+        input = inputChecker(scanner, true);
         int pricePerUnits = Integer.parseInt(input);
         Instruction instruction = new Instruction(entityName, isSelling, agreedFix, currency, instructionDate,
                 settlementDate, units, pricePerUnits);
@@ -47,6 +51,7 @@ public class InstructionDataCollector {
 
     /**
      * This method it is used to see which currency subclass will the instruction have
+     *
      * @param currencyType
      * @return
      */
@@ -70,25 +75,29 @@ public class InstructionDataCollector {
 
     /**
      * Basic checker that will test if the data entered is a number or not
+     *
      * @param scanner
-     * @param isInt this param take care of which parseable method call int or double
+     * @param isInt   this param take care of which parseable method call int or double
      * @return
      */
     private static String inputChecker(Scanner scanner, boolean isInt) {
         String input = "";
         while (true) {
             input = scanner.next();
-            if(isInt) {
+            if (isInt) {
                 if (isNoNegative(input) && isParseableInt(input)) {
                     break;
                 }
+                //logger.error("ENTER ONLY POSITIVE NUMBERS, NO DECIMALS, NO CHARACTERS");
                 System.out.println("ENTER ONLY POSITIVE NUMBERS, NO DECIMALS, NO CHARACTERS");
-            }else{
+            } else {
                 if (isNoNegative(input) && isParseableDouble(input)) {
                     break;
                 }
+                //logger.error("ENTER ONLY POSITIVE NUMBERS, NO CHARACTERS");
                 System.out.println("ENTER ONLY POSITIVE NUMBERS, NO CHARACTERS");
             }
+            //logger.error("Please try again: ");
             System.out.print("Please try again: ");
         }
         return input;
@@ -96,6 +105,7 @@ public class InstructionDataCollector {
 
     /**
      * Method used by inputChecker to test if the data entered is int or not
+     *
      * @param str
      * @return
      */
@@ -107,8 +117,10 @@ public class InstructionDataCollector {
             return false;
         }
     }
+
     /**
      * Method used by inputChecker to test if the data entered is double or not
+     *
      * @param str
      * @return
      */
@@ -126,14 +138,15 @@ public class InstructionDataCollector {
      * I am using parseDouble here because it will works with int and double
      * int will add a .0 decimal which will not change the value
      * while if I use parseInt will only work with int
+     *
      * @param str
      * @return
      */
     private static boolean isNoNegative(String str) {
         try {
-            if(Double.parseDouble(str)<0){
+            if (Double.parseDouble(str) < 0) {
                 return false;
-            }else {
+            } else {
                 return true;
             }
         } catch (NumberFormatException e) {

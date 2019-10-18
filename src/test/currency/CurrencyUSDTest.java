@@ -19,7 +19,7 @@ public class CurrencyUSDTest {
     }
 
     @org.junit.jupiter.api.Test
-    void calculateTotal(){
+    void calculateTotal() {
         double totalUSD = currency.calculateTotal(instruction);
         double totalUSDSAR = currency.calculateTotal(instructionSAR);
         Assert.assertTrue(totalUSD == totalUSDSAR);

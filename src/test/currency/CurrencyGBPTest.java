@@ -18,7 +18,7 @@ public class CurrencyGBPTest {
     }
 
     @org.junit.jupiter.api.Test
-    void calculateTotal(){
+    void calculateTotal() {
         double totalUSD = currency.calculateTotal(instruction);
         Assert.assertTrue(totalUSD == 169862.5);
     }

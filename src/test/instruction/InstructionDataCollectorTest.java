@@ -36,17 +36,17 @@ public class InstructionDataCollectorTest {
         System.setIn(in);
         Scanner scanner = new Scanner(in);
         String input = (String) method.invoke(instructionDataCollector, scanner, true);
-        Assert.assertEquals("5",input);
+        Assert.assertEquals("5", input);
     }
 
     @org.junit.jupiter.api.Test
-    void instructionDataScannerCollector(){
+    void instructionDataScannerCollector() {
         ByteArrayInputStream in = new ByteArrayInputStream("5".getBytes());
         System.setIn(in);
         Scanner scanner = new Scanner(in);
         CurrencyGBP currencyGBP = new CurrencyGBP();
         Instruction instruction = new Instruction("JP Morgan", true, 5.0, currencyGBP,
-                "25/10/2019","28/10/2019", scanner.nextInt(), 500);
+                "25/10/2019", "28/10/2019", scanner.nextInt(), 500);
         Assert.assertTrue(instruction.getUnits() == 5);
     }
 }

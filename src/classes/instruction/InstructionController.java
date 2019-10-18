@@ -19,7 +19,7 @@ import java.util.List;
  * Class to manage the instructions, date validation, USD calculation, and report generation
  */
 public class InstructionController {
-    static final Logger logger = (Logger) LoggerFactory.getLogger(InstructionController .class);
+    static final Logger logger = (Logger) LoggerFactory.getLogger(InstructionController.class);
     Calendar masterCalendar;
     int nextWorkingDay = 0;
 
@@ -34,7 +34,7 @@ public class InstructionController {
      * @param instruction
      */
     public Instruction setNextWorkingDay(Instruction instruction) {
-        if(instruction != null){
+        if (instruction != null) {
             nextWorkingDay = 0;
             if (instruction.getCurrency().getType().toUpperCase().equals("AED") ||
                     instruction.getCurrency().getType().toUpperCase().equals("SAR")) {
@@ -48,14 +48,14 @@ public class InstructionController {
                 if (nextWorkingDay == Calendar.SUNDAY) {
                     if (masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY ||
                             masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-                        while(masterCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
+                        while (masterCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
                             masterCalendar.add(Calendar.DAY_OF_WEEK, 1);
                         }
                     }
                 } else if (nextWorkingDay == Calendar.MONDAY) {
                     if (masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
                             masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                        while(masterCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY){
+                        while (masterCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
                             masterCalendar.add(Calendar.DAY_OF_WEEK, 1);
                         }
                     }
@@ -66,7 +66,7 @@ public class InstructionController {
                 logger.info("An error happened while parsing the date " + e);
             }
             return instruction;
-        }else{
+        } else {
             logger.error("Instruction is null");
             throw new NullPointerException("Instruction is null");
         }
@@ -74,6 +74,7 @@ public class InstructionController {
 
     /**
      * Method to generate hardcoded instructions that can be used for fast testing of the application
+     *
      * @return
      */
     public List<Instruction> instructionsGeneratorForTesting() {

@@ -5,6 +5,7 @@ import classes.instruction.Instruction;
 public class CurrencyEUR extends Currency {
     //A little bit redundant to create a constant here but wanted to show the usage of at least a couple
     public final static String EUR = "EUR";
+
     public CurrencyEUR() {
         super(EUR);
     }

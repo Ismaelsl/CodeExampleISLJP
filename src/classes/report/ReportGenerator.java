@@ -30,6 +30,7 @@ public class ReportGenerator {
 
     /**
      * Method which format the string to show in the screen with the summary
+     *
      * @param instructionsList
      * @param typeOfBusiness
      */

@@ -12,6 +12,7 @@ public class CurrencyGBP extends Currency {
 
     /**
      * GBP have a different way to calculate the USD so that is why I am overriding the father method
+     *
      * @param instruction
      * @return
      */

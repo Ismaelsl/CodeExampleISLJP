@@ -40,12 +40,12 @@ public class ReportGeneratorTest {
         buyInstructionList.addAll(reportGenerator.getBuyInstructionList());
         sellInstructionList = reportGenerator.getSellInstructionList();
         reportGenerator.reportStringFormatting(buyInstructionList, "BUY");
-        Assert.assertTrue(!Objects.equals(reportGenerator.getBuyInstructionList(),buyInstructionList));
+        Assert.assertTrue(!Objects.equals(reportGenerator.getBuyInstructionList(), buyInstructionList));
         Assert.assertTrue(outContent.toString().contains("TSB"));
     }
 
     @org.junit.jupiter.api.Test
-    void instructionSummarizer(){
+    void instructionSummarizer() {
         reportGenerator.instructionSummarizer(instructionList);
         Assert.assertTrue(!reportGenerator.getBuyInstructionList().isEmpty());
         Assert.assertTrue(!reportGenerator.getSellInstructionList().isEmpty());

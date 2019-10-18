@@ -105,6 +105,7 @@ public class Instruction implements Comparable<Instruction> {
     /**
      * Overriding toString method so it is quite flexible when printing and updating the print, new data can be added
      * or removed if need it
+     *
      * @return
      */
     @Override
@@ -115,6 +116,7 @@ public class Instruction implements Comparable<Instruction> {
 
     /**
      * Overriding compareTo to be able to sort the list based on the totalUSD variable
+     *
      * @param instruction
      * @return
      */
