@@ -11,17 +11,12 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public class ReportGenerator {
-    ArrayList<Instruction> buyInstructionList;
-    ArrayList<Instruction> sellInstructionList;
+    private ArrayList<Instruction> buyInstructionList;
+    private ArrayList<Instruction> sellInstructionList;
 
     public ReportGenerator() {
         buyInstructionList = new ArrayList<>();
         sellInstructionList = new ArrayList<>();
-    }
-    //add instructions to the report list
-    public void addInstructionToReport(Instruction instruction) {
-        if (!instruction.isSelling()) buyInstructionList.add(instruction);
-        else sellInstructionList.add(instruction);
     }
 
     /**
@@ -57,12 +52,32 @@ public class ReportGenerator {
 
     public void instructionSummarizer(List<Instruction> instructionsList) {
         InstructionController management = new InstructionController();
-        instructionsList.stream().map(instruction -> {
-            Currency currency = instruction.getCurrency();
-            instruction = management.setNextWorkingDay(instruction);
-            instruction.setTotalUSD(currency.calculateTotal(instruction));
-            this.addInstructionToReport(instruction);
-            return instruction;
-        }).collect(toList());
+        if (!instructionsList.isEmpty()) {
+            instructionsList.stream().map(instruction -> {
+                Currency currency = instruction.getCurrency();
+                instruction = management.setNextWorkingDay(instruction);
+                instruction.setTotalUSD(currency.calculateTotal(instruction));
+                if (!instruction.isSelling()) buyInstructionList.add(instruction);
+                else sellInstructionList.add(instruction);
+                return instruction;
+            }).collect(toList());
+        }
     }
+
+    public ArrayList<Instruction> getBuyInstructionList() {
+        return buyInstructionList;
+    }
+
+    public void setBuyInstructionList(ArrayList<Instruction> buyInstructionList) {
+        this.buyInstructionList = buyInstructionList;
+    }
+
+    public ArrayList<Instruction> getSellInstructionList() {
+        return sellInstructionList;
+    }
+
+    public void setSellInstructionList(ArrayList<Instruction> sellInstructionList) {
+        this.sellInstructionList = sellInstructionList;
+    }
+
 }

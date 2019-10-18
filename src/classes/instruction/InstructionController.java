@@ -34,37 +34,42 @@ public class InstructionController {
      * @param instruction
      */
     public Instruction setNextWorkingDay(Instruction instruction) {
-        nextWorkingDay = 0;
-        if (instruction.getCurrency().getType().toUpperCase().equals("AED") ||
-                instruction.getCurrency().getType().toUpperCase().equals("SAR")) {
-            nextWorkingDay = Calendar.SUNDAY;
-        } else {
-            nextWorkingDay = Calendar.MONDAY;
-        }
-        try {
-            Date parsingDateForNextWorkingDay = new SimpleDateFormat("dd/MM/yyyy").parse(instruction.getInstructionDate());
-            masterCalendar.setTime(parsingDateForNextWorkingDay);
-            if (nextWorkingDay == Calendar.SUNDAY) {
-                if (masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY ||
-                        masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-                    while(masterCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
-                        masterCalendar.add(Calendar.DAY_OF_WEEK, 1);
-                    }
-                }
-            } else if (nextWorkingDay == Calendar.MONDAY) {
-                if (masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
-                        masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                    while(masterCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY){
-                        masterCalendar.add(Calendar.DAY_OF_WEEK, 1);
-                    }
-                }
+        if(instruction != null){
+            nextWorkingDay = 0;
+            if (instruction.getCurrency().getType().toUpperCase().equals("AED") ||
+                    instruction.getCurrency().getType().toUpperCase().equals("SAR")) {
+                nextWorkingDay = Calendar.SUNDAY;
+            } else {
+                nextWorkingDay = Calendar.MONDAY;
             }
-            DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            instruction.setInstructionDate(simpleDateFormat.format(masterCalendar.getTime()));
-        } catch (ParseException e) {
-            logger.info("An error happened while parsing the date " + e);
+            try {
+                Date parsingDateForNextWorkingDay = new SimpleDateFormat("dd/MM/yyyy").parse(instruction.getInstructionDate());
+                masterCalendar.setTime(parsingDateForNextWorkingDay);
+                if (nextWorkingDay == Calendar.SUNDAY) {
+                    if (masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY ||
+                            masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+                        while(masterCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
+                            masterCalendar.add(Calendar.DAY_OF_WEEK, 1);
+                        }
+                    }
+                } else if (nextWorkingDay == Calendar.MONDAY) {
+                    if (masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                            masterCalendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                        while(masterCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY){
+                            masterCalendar.add(Calendar.DAY_OF_WEEK, 1);
+                        }
+                    }
+                }
+                DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                instruction.setInstructionDate(simpleDateFormat.format(masterCalendar.getTime()));
+            } catch (ParseException e) {
+                logger.info("An error happened while parsing the date " + e);
+            }
+            return instruction;
+        }else{
+            logger.error("Instruction is null");
+            throw new NullPointerException("Instruction is null");
         }
-        return instruction;
     }
 
     /**

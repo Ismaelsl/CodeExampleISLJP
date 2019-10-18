@@ -2,6 +2,9 @@ package classes.instruction;
 
 import classes.currency.Currency;
 
+/**
+ * POJO class used to create instructions
+ */
 public class Instruction implements Comparable<Instruction> {
     private String entityName;
     private boolean isSelling;
@@ -99,12 +102,22 @@ public class Instruction implements Comparable<Instruction> {
         this.pricePerUnit = pricePerUnit;
     }
 
+    /**
+     * Overriding toString method so it is quite flexible when printing and updating the print, new data can be added
+     * or removed if need it
+     * @return
+     */
     @Override
     public String toString() {
         return this.getEntityName() + " " + this.currency.getType() + " : Total USD: " + this.getTotalUSD() +
                 " Instruction Date: " + this.getInstructionDate();
     }
 
+    /**
+     * Overriding compareTo to be able to sort the list based on the totalUSD variable
+     * @param instruction
+     * @return
+     */
     @Override
     public int compareTo(Instruction instruction) {
         return new Double(this.totalUSD).compareTo(instruction.getTotalUSD());
